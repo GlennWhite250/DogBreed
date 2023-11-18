@@ -6,7 +6,6 @@ import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
@@ -23,7 +22,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import com.bumptech.glide.Glide
 import com.bumptech.glide.integration.compose.CrossFade
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
@@ -31,7 +29,6 @@ import com.bumptech.glide.integration.compose.placeholder
 import com.example.dogbreed.R
 
 @SuppressLint("StateFlowValueCalledInComposition")
-@OptIn(ExperimentalGlideComposeApi::class)
 @Composable
 fun ListContentScreen(items: List<String>) {
     AllDogs(dogList = items)
@@ -71,7 +68,11 @@ fun CardItem(dog: String){
             .wrapContentHeight()
             .clickable {
                 Toast
-                    .makeText(context, "You have clicked on a dog. Good Job!", Toast.LENGTH_SHORT)
+                    .makeText(
+                        context,
+                        "You have clicked on a $dog dog. Good Job!",
+                        Toast.LENGTH_SHORT
+                    )
                     .show()
             },
         elevation = CardDefaults.cardElevation(

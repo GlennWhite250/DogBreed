@@ -20,24 +20,12 @@ class MyViewModel: ViewModel() {
     private val _dogPic: MutableStateFlow<List<String>> = MutableStateFlow(listOf())
     val dogPic: StateFlow<List<String>> = _dogPic
 
-//    private val _message: MutableStateFlow<String> = MutableStateFlow(" ")
-//    val message: StateFlow<String> = _message
-//
-//    var dogPic by mutableStateOf<String?>(value = null)
-//        private set
-//
     fun updateSearchQuery(breed: String){
         _message.value = breed
     }
-//
-//    fun selectedDog(dog: String){
-//        viewModelScope.launch {
-//            dogPic = dog
-//        }
-//    }
+
 
     fun searchHero(breed: String){
-        //Log.i("Glenn1", "What we are looking for is: $breed")
         viewModelScope.launch {
             ApiClient.apiService.fetchDog(breed).enqueue(object : Callback<DogImageResponse>{
                 override fun onResponse(
@@ -45,12 +33,13 @@ class MyViewModel: ViewModel() {
                     response: Response<DogImageResponse>
                 ) {
                     val responseData: List<String>? = response.body()?.message
-                    //Log.i("Glenn1", "The response is: $responseData")
                     if (responseData != null) {
                         _dogPic.value = responseData
-                        Log.i("Glenn2", "The response is: ${_dogPic.value}")
                     } else {
                         Log.d("MyViewModel", "The responseData was null")
+                    }
+                    if (response.code() == 404) {
+                        Log.d("MyViewModel", "We looked for a breed that does not exist")
                     }
                 }
 

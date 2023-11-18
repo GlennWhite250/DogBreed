@@ -1,7 +1,6 @@
 package com.example.dogbreed.ui.screen
 
 import android.annotation.SuppressLint
-import android.util.Log
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
@@ -39,7 +38,6 @@ fun SearchScreen(
             )
         },
         content = {
-            Log.i("Glenn3", "What we are sending: ${dogPic.value}")
             ListContentScreen(items = dogPic.value)
         }
     )
